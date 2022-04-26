@@ -14,7 +14,7 @@ data = pd.read_csv(url, skipinitialspace=True)
 data.head()
 data.shape
 data.info
-col_names = ['age','workclass','fnlwgt','education','education-num','marital-status','occupation','relationship','race','sex','capital-gain','capital-loss','hours_per_week','native-country','salary']
+col_names = ['age','workclass','fnlwgt','education','education_num','marital_status','occupation','relationship','race','sex','capital_gain','capital_loss','hours_per_week','native_country','salary']
 
 data.columns = col_names
 
@@ -105,4 +105,21 @@ print(df2_min)
 # 10% of the people working the minimum number of hours per week are making a salary of more than $50,000.
 
 
+# 8. What country has the highest percentage of people that earn >50K and what is that percentage?
+df_country = df.value_counts(subset=['native_country','salary'], normalize=True) * 100
+df2_country = df
+print(df_country.to_string())
+
+
+df_country = df.groupby(['native_country','salary'], as_index = False).count()
+
+country = df_country[['native_country','salary','age']]
+country.rename(columns={'age':'count'}, inplace=True)
+
+
+country["percentage"] = 100 * country['count']/ country.groupby('native_country')['count'].transform('sum')
+country = country.sort_values('percentage', ascending=False)
+
+print(country.to_string())
+# The country with the highest percentage of people that earn greater than $50,000 is Iran with 41.86%.
 

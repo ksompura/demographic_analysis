@@ -1,6 +1,7 @@
 # Demographic data analysis from 1994 Census data
 
 #import libraries
+from locale import normalize
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -45,6 +46,7 @@ df_male['age'].mean()
 ## average male age is 39.434 years old.
 # consider graphing age distribution
 
+
 # 3. What is the percentage of people who have a Bachelor's degree?
 # find number with bachelor/ total people
 # groupby education
@@ -56,3 +58,15 @@ df.education.value_counts(normalize=True) * 100
 # consider visualizing the education levels represented
 
 
+# 4. What percentage of people with advanced education (Bachelors, Masters, or Doctorate) make more than 50k?
+# create datafram with only Bachelors, Masters, and Doctorate
+mask_adv = (df['education'] == 'Bachelors') | (df['education'] == 'Masters') | (df['education'] == 'Doctorate')
+df_adv = df[mask_adv]
+
+df_adv.groupby(['education', 'salary'])['salary'].count()
+
+df_adv.salary.value_counts(normalize=True) * 100
+# Only 46.54% of people with advanced education (Bachelors, Masters, or Doctorate) made more than $50,000 at the time of the survey.
+# That is also to say 53.46% of people with advance education made less than $50,000.
+
+# consider graphing salary with age, sex, race, or home country to see if there is anything significant

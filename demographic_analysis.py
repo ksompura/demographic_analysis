@@ -123,3 +123,12 @@ country = country.sort_values('percentage', ascending=False)
 print(country.to_string())
 # The country with the highest percentage of people that earn greater than $50,000 is Iran with 41.86%.
 
+
+# 9. Identify the most popular occupation for those who earn >50K in India.
+# filter country to only India and salary >50K
+mask_ind = (df['native_country'] == 'India') & (df['salary'] == '>50K')
+df_ind = df[mask_ind]
+
+# groupby occupation and count
+df_ind.occupation.value_counts()
+# The most popular occupation for high salary earners in India is 'Prof-specialty', with 25 out of the 40 high earning Indians having that occupation.  

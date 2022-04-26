@@ -14,7 +14,7 @@ data = pd.read_csv(url, skipinitialspace=True)
 data.head()
 data.shape
 data.info
-col_names = ['age','workclass','fnlwgt','education','education-num','marital-status','occupation','relationship','race','sex','capital-gain','capital-loss','hours-per-week','native-country','salary']
+col_names = ['age','workclass','fnlwgt','education','education-num','marital-status','occupation','relationship','race','sex','capital-gain','capital-loss','hours_per_week','native-country','salary']
 
 data.columns = col_names
 
@@ -83,5 +83,26 @@ df_und.salary.value_counts(normalize=True) * 100
 
 # Only 17.37% of people without advanced education (Bachelors, Masters, or Doctorate) made more than $50,000 at the time of the survey.
 # # That is also to say 82.63% of people without advance education made less than $50,000.
+
+
+# 6. What is the minimum number of hours a person works per week?
+# find the min value 
+df['hours_per_week'].min()
+
+# the minimum number of hours a person worked per week was 1 hour.
+
+# consider graphing a histogram of the hours per week to see how many hours people work
+
+
+# 7. What percentage of the people who work the minimum number of hours per week have a salary of more than 50K?
+# create a mask to filter only people who work the minimum number of hours per week
+mask_min = df['hours_per_week'] == df.hours_per_week.min()
+df_min = df[mask_min]
+df2_min = df_min.groupby('salary')['salary'].count()
+df2_min['percentage'] = (df2_min / df2_min.sum()) * 100
+print(df2_min)
+
+# 10% of the people working the minimum number of hours per week are making a salary of more than $50,000.
+
 
 

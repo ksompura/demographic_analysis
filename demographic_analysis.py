@@ -70,3 +70,18 @@ df_adv.salary.value_counts(normalize=True) * 100
 # That is also to say 53.46% of people with advance education made less than $50,000.
 
 # consider graphing salary with age, sex, race, or home country to see if there is anything significant
+
+# 5. What percentage of people without advanced education make more than 50K?
+
+# invert the mask made for the advanced education in question 4
+mask_und = ~mask_adv
+
+df_und = df[mask_und]
+
+df_und.groupby(['education', 'salary'])['salary'].count()
+df_und.salary.value_counts(normalize=True) * 100
+
+# Only 17.37% of people without advanced education (Bachelors, Masters, or Doctorate) made more than $50,000 at the time of the survey.
+# # That is also to say 82.63% of people without advance education made less than $50,000.
+
+

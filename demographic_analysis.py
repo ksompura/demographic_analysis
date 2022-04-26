@@ -45,4 +45,14 @@ df_male['age'].mean()
 ## average male age is 39.434 years old.
 # consider graphing age distribution
 
-# 3.
+# 3. What is the percentage of people who have a Bachelor's degree?
+# find number with bachelor/ total people
+# groupby education
+df_edu = df.education.value_counts()
+
+# calculate percentage of people with bachelors degree
+df.education.value_counts(normalize=True) * 100
+## 16.44% of the people in the dataset have a Bachelor's degree.
+# consider visualizing the education levels represented
+
+
